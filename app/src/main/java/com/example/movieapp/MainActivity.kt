@@ -1,8 +1,10 @@
 package com.example.movieapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -88,19 +90,24 @@ fun Movies(movieList: List<String> = listOf("Avatar", "300", "Harry Potter", "Ha
     Column(modifier = Modifier.padding(12.dp)) {
         LazyColumn() {
             items(items = movieList) {
-                MovieRow(it)
+                MovieRow(it){movie ->
+                    Log.d("Movie",movie)
+                }
             }
         }
     }
 }
 
 @Composable
-fun MovieRow(movie: String) {
+fun MovieRow(movie: String, onItemClick: (String) -> Unit = {}) {
     Card(
         modifier = Modifier
             .padding(4.dp)
             .fillMaxWidth()
-            .height(130.dp),
+            .height(130.dp)
+            .clickable {
+                onItemClick(movie)
+            },
         shape = RoundedCornerShape(corner = CornerSize(16.dp)),
         elevation = CardDefaults.cardElevation(6.dp)
     ) {
