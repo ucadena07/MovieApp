@@ -73,7 +73,7 @@ fun Movies(movieList: List<String> = listOf("Avatar", "300", "Harry Potter", "Ha
         LazyColumn() {
             items(items = movieList) {
                 MovieRow(it){movie ->
-                  navController.navigate(MovieScreens.DetailsScreen.name)
+                  navController.navigate("${MovieScreens.DetailsScreen.name}/$movie")
                 }
             }
         }
