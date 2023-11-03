@@ -32,7 +32,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.movieapp.model.Movie
+import com.example.movieapp.model.getMovies
 import com.example.movieapp.navigation.MovieScreens
+import com.example.movieapp.screens.widgets.MovieRow
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,45 +69,17 @@ fun MainContent(padding: PaddingValues = PaddingValues(0.dp), navController: Nav
 }
 
 @Composable
-fun Movies(movieList: List<String> = listOf("Avatar", "300", "Harry Potter", "Happy Feet","Life","Cross the line"),
+fun Movies(movieList: List<Movie> = getMovies(),
            navController: NavController
            ) {
     Column(modifier = Modifier.padding(12.dp)) {
         LazyColumn() {
             items(items = movieList) {
                 MovieRow(it){movie ->
-                  navController.navigate("${MovieScreens.DetailsScreen.name}/$movie")
+                  navController.navigate("${MovieScreens.DetailsScreen.name}/${movie.id}")
                 }
             }
         }
     }
 }
 
-@Composable
-fun MovieRow(movie: String, onItemClick: (String) -> Unit = {}) {
-    Card(
-        modifier = Modifier
-            .padding(4.dp)
-            .fillMaxWidth()
-            .height(130.dp)
-            .clickable {
-                onItemClick(movie)
-            },
-        shape = RoundedCornerShape(corner = CornerSize(16.dp)),
-        elevation = CardDefaults.cardElevation(6.dp)
-    ) {
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Start) {
-            Surface(modifier = Modifier
-                .padding(12.dp)
-                .size(100.dp)
-                .fillMaxWidth(),
-                shape = RectangleShape,
-                shadowElevation = 4.dp
-            ) {
-                Icon(imageVector = Icons.Default.AccountBox, contentDescription = "icon")
-            }
-            Text(text = movie)
-        }
-
-    }
-}
