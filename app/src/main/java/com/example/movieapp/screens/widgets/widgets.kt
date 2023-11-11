@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -92,11 +93,16 @@ fun MovieRow(movie: Movie = getMovies().first(), onItemClick: (Movie) -> Unit = 
                           withStyle(style = SpanStyle(color = Color.DarkGray, fontSize = 13.sp)){
                               append("Plot: ")
                           }
-                          withStyle(style = SpanStyle(color = Color.DarkGray, fontSize = 13.sp, fontWeight = FontWeight.Bold)){
+                          withStyle(style = SpanStyle(color = Color.DarkGray, fontSize = 13.sp, fontWeight = FontWeight.Light)){
                               append(movie.plot)
                           }
-                      })
+                      }, modifier = Modifier.padding(6.dp))
+                       Divider()
+                       Text(text = "Director: ${movie.director}", style = MaterialTheme.typography.bodySmall)
+                       Text(text = "Actors: ${movie.actors}", style = MaterialTheme.typography.bodySmall)
+                       Text(text = "Rating: ${movie.rating}", style = MaterialTheme.typography.bodySmall)
                    }
+
                }
 
                 Icon(imageVector = if(expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown , contentDescription = "down arrow",
